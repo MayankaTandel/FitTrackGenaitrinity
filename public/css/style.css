@@ -1,0 +1,144 @@
+:root {
+  --ink: #1a2420;
+  --muted: #667069;
+  --border: #e2e8e4;
+  --canvas: #f4f7f5;
+  --surface: #ffffff;
+  --growth: #1f9d63;
+  --growth-soft: #e6f6ee;
+  --danger: #d64545;
+  --danger-soft: #fbeaea;
+  --focus: #2563eb;
+  --radius: 14px;
+  --shadow: 0 6px 20px rgba(20, 30, 25, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+.app-shell { max-width: 720px; margin: 0 auto; padding: 24px 18px 80px; }
+
+.app-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.app-mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--growth), #2563eb); }
+.app-header h1 { font-size: 20px; margin: 0; }
+.app-header .sub { color: var(--muted); font-size: 12.5px; margin-left: auto; }
+
+.tabs { display: flex; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 4px; margin-bottom: 20px; }
+.tab-btn { flex: 1; border: none; background: transparent; padding: 9px 4px; border-radius: 9px; font-size: 13.5px; font-weight: 600; color: var(--muted); cursor: pointer; }
+.tab-btn.active { background: var(--growth); color: #fff; }
+
+.page { display: none; }
+.page.active { display: block; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+.card h2 { font-size: 15.5px; margin: 0 0 12px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stat-box { background: var(--canvas); border-radius: 10px; padding: 12px; text-align: center; }
+.stat-box .num { font-size: 20px; font-weight: 700; }
+.stat-box .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+.progress-bar { height: 10px; border-radius: 6px; background: var(--border); overflow: hidden; margin: 10px 0; }
+.progress-bar > div { height: 100%; background: var(--growth); transition: width 0.3s ease; }
+
+.field { margin-bottom: 12px; }
+.field label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 5px; }
+.input, select {
+  width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 9px;
+  font-size: 14px; font-family: inherit; background: #fff; color: var(--ink);
+}
+.input:focus, select:focus { outline: none; border-color: var(--focus); }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.btn { border: none; border-radius: 10px; padding: 10px 16px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+.btn-primary { background: var(--growth); color: #fff; width: 100%; }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-outline { background: #fff; border: 1.5px solid var(--border); color: var(--ink); }
+.btn-block { width: 100%; }
+.btn-sm { padding: 6px 10px; font-size: 12.5px; }
+
+.log-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.log-item:last-child { border-bottom: none; }
+.log-item .name { font-weight: 600; font-size: 13.5px; }
+.log-item .meta { font-size: 11.5px; color: var(--muted); text-transform: capitalize; }
+.log-item .cals { font-weight: 700; font-size: 13.5px; }
+.log-item .remove { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; padding: 4px 8px; }
+.log-item .remove:hover { color: var(--danger); }
+
+.empty-note { color: var(--muted); font-size: 13px; text-align: center; padding: 14px 0; }
+
+.error-banner { background: var(--danger-soft); color: var(--danger); border-radius: 9px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; display: none; }
+.error-banner.show { display: block; }
+
+.toast {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 10px; font-size: 13.5px;
+  opacity: 0; transition: all 0.25s ease; pointer-events: none; z-index: 50;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.error { background: var(--danger); }
+
+.snap-zone {
+  border: 1.5px dashed var(--border); border-radius: 12px; padding: 18px; text-align: center;
+  color: var(--muted); font-size: 13px; cursor: pointer; margin-bottom: 12px;
+}
+.snap-zone img { max-width: 100%; max-height: 160px; border-radius: 8px; margin-top: 8px; }
+
+.spinner {
+  display: inline-block; width: 13px; height: 13px; border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.goal-pills { display: flex; gap: 8px; }
+.goal-pill { flex: 1; text-align: center; padding: 10px; border: 1.5px solid var(--border); border-radius: 9px; font-size: 13px; font-weight: 600; cursor: pointer; text-transform: capitalize; }
+.goal-pill.selected { border-color: var(--growth); background: var(--growth-soft); color: var(--growth); }
+
+/* ---------- BMI scale ---------- */
+.bmi-scale {
+  position: relative;
+  display: flex;
+  height: 16px;
+  border-radius: 8px;
+  overflow: visible;
+  margin-top: 6px;
+}
+.bmi-zone { height: 100%; }
+.bmi-zone:first-child { border-radius: 8px 0 0 8px; }
+.bmi-zone:last-child { border-radius: 0 8px 8px 0; }
+.bmi-under { flex: 3.5; background: #60a5fa; }
+.bmi-normal { flex: 6.5; background: var(--growth); }
+.bmi-over { flex: 5; background: #f5a623; }
+.bmi-obese { flex: 5; background: var(--danger); }
+.bmi-marker {
+  position: absolute;
+  top: -14px;
+  left: 0%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: var(--ink);
+  transition: left 0.3s ease;
+}
+.bmi-scale-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.bmi-scale-labels span:nth-child(1) { flex: 3.5; }
+.bmi-scale-labels span:nth-child(2) { flex: 6.5; text-align: center; }
+.bmi-scale-labels span:nth-child(3) { flex: 5; text-align: center; }
+.bmi-scale-labels span:nth-child(4) { flex: 5; text-align: right; }
+
+/* ---------- Weekly bar charts (plain SVG, no library) ---------- */
+.chart-legend { display: flex; gap: 16px; justify-content: center; margin-top: 8px; font-size: 12px; color: var(--muted); }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+.dot-eaten { background: var(--growth); }
+.dot-burned { background: #f5a623; }

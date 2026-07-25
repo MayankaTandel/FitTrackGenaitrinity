@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FitTrackGenaitrinity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="app-shell">
+  <div class="app-header">
+    <div class="app-mark"></div>
+    <h1>FitTrackGenaitrinity</h1>
+    <div class="sub"></div>
+  </div>
+
+  <!-- ===================== ONBOARDING GATE ===================== -->
+  <div id="onboardGate">
+    <div class="card">
+      <h2>👋 Let's set up your profile</h2>
+      <div class="error-banner" id="onboardError"></div>
+      <form id="onboardForm">
+        <div class="field">
+          <label for="onboardName">Name</label>
+          <input class="input" type="text" id="onboardName" placeholder="Alex" required />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="onboardAge">Age</label>
+            <input class="input" type="number" id="onboardAge" placeholder="28" required />
+          </div>
+          <div class="field">
+            <label for="onboardGender">Gender</label>
+            <select id="onboardGender">
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="onboardHeight">Height (cm)</label>
+            <input class="input" type="number" id="onboardHeight" placeholder="165" required />
+          </div>
+          <div class="field">
+            <label for="onboardWeight">Weight (kg)</label>
+            <input class="input" type="number" id="onboardWeight" placeholder="60" required />
+          </div>
+        </div>
+        <div class="field">
+          <label>Goal</label>
+          <div class="goal-pills" id="onboardGoalPills">
+            <div class="goal-pill" data-goal="lose">📉 Lose</div>
+            <div class="goal-pill" data-goal="maintain">⚖️ Maintain</div>
+            <div class="goal-pill" data-goal="gain">📈 Gain</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">🚀 Get started</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== MAIN APP ===================== -->
+  <div id="mainApp" style="display:none;">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="dashboard">📊 Dashboard</button>
+      <button class="tab-btn" data-tab="food">🍎 Food</button>
+      <button class="tab-btn" data-tab="activity">🏃 Activity</button>
+      <button class="tab-btn" data-tab="profile">👤 Profile</button>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="page active" id="page-dashboard">
+      <div class="card">
+        <h2 id="dashGreeting">Hi 👋</h2>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="num" id="dashConsumed">0</div><div class="label">🍽️ Eaten</div></div>
+          <div class="stat-box"><div class="num" id="dashBurned">0</div><div class="label">🔥 Burned</div></div>
+          <div class="stat-box"><div class="num" id="dashNet">0</div><div class="label">⚖️ Net</div></div>
+        </div>
+        <div class="progress-bar"><div id="dashBar" style="width:0%;"></div></div>
+        <div style="font-size:12.5px; color:var(--muted);">
+          🎯 Daily goal: <strong id="dashGoal">—</strong>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>⚖️ BMI Scale</h2>
+        <div class="bmi-scale">
+          <div class="bmi-zone bmi-under"></div>
+          <div class="bmi-zone bmi-normal"></div>
+          <div class="bmi-zone bmi-over"></div>
+          <div class="bmi-zone bmi-obese"></div>
+          <div class="bmi-marker" id="bmiMarker">▲</div>
+        </div>
+        <div class="bmi-scale-labels">
+          <span>Underweight</span>
+          <span>Normal</span>
+          <span>Overweight</span>
+          <span>Obese</span>
+        </div>
+        <div style="text-align:center; margin-top:10px; font-size:13.5px;">
+          Your BMI: <strong id="dashBmiValue">—</strong> · <span id="dashBmiCategory">—</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>📈 Last 7 days</h2>
+        <div id="weeklyChart"></div>
+        <div class="chart-legend">
+          <span><i class="dot dot-eaten"></i> Eaten</span>
+          <span><i class="dot dot-burned"></i> Burned</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Food -->
+    <div class="page" id="page-food">
+      <div class="card">
+        <h2>📸 AI Food Snap</h2>
+        <div class="snap-zone" id="snapZone">
+          Click to upload a food photo — Gemini will estimate the calories.
+          <img id="snapPreview" style="display:none;" />
+        </div>
+        <div id="snapResult" style="display:none; font-size:13.5px;"></div>
+        <input type="file" id="snapInput" accept="image/*" style="display:none;" />
+      </div>
+
+      <div class="card">
+        <h2>Log food manually 📝</h2>
+        <form id="foodForm">
+          <div class="field">
+            <label for="foodName">Food name</label>
+            <input class="input" type="text" id="foodName" placeholder="Grilled chicken bowl" required />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="foodCalories">Calories</label>
+              <input class="input" type="number" id="foodCalories" placeholder="450" required />
+            </div>
+            <div class="field">
+              <label for="foodMealType">Meal</label>
+              <select id="foodMealType">
+                <option value="breakfast">🌅 Breakfast</option>
+                <option value="lunch">☀️ Lunch</option>
+                <option value="dinner">🌙 Dinner</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">➕ Add food</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>🗒️ Today's food log</h2>
+        <div id="foodList"></div>
+      </div>
+    </div>
+
+    <!-- Activity -->
+    <div class="page" id="page-activity">
+      <div class="card">
+        <h2>Log activity 💪</h2>
+        <form id="activityForm">
+          <div class="field">
+            <label for="activityType">Activity</label>
+            <select id="activityType">
+              <option value="walking">🚶 Walking</option>
+              <option value="running">🏃 Running</option>
+              <option value="cycling">🚴 Cycling</option>
+              <option value="swimming">🏊 Swimming</option>
+              <option value="yoga">🧘 Yoga</option>
+              <option value="weight_training">🏋️ Weight training</option>
+              <option value="hiit">🔥 HIIT</option>
+              <option value="dancing">💃 Dancing</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="activityDuration">Duration (minutes)</label>
+            <input class="input" type="number" id="activityDuration" placeholder="30" required />
+          </div>
+          <button type="submit" class="btn btn-primary">➕ Add activity</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>🗒️ Today's activity log</h2>
+        <div id="activityList"></div>
+      </div>
+
+      <div class="card">
+        <h2>📈 Calories burned — last 7 days</h2>
+        <div id="weeklyBurnedChart"></div>
+      </div>
+    </div>
+
+    <!-- Profile -->
+    <div class="page" id="page-profile">
+      <div class="card">
+        <h2>👤 Your profile</h2>
+        <div class="error-banner" id="profileError"></div>
+        <form id="profileForm">
+          <div class="field">
+            <label for="profileName">Name</label>
+            <input class="input" type="text" id="profileName" required />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="profileAge">Age</label>
+              <input class="input" type="number" id="profileAge" required />
+            </div>
+            <div class="field">
+              <label for="profileGender">Gender</label>
+              <select id="profileGender">
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="profileHeight">Height (cm)</label>
+              <input class="input" type="number" id="profileHeight" required />
+            </div>
+            <div class="field">
+              <label for="profileWeight">Weight (kg)</label>
+              <input class="input" type="number" id="profileWeight" required />
+            </div>
+          </div>
+          <div class="field">
+            <label>Goal</label>
+            <div class="goal-pills" id="profileGoalPills">
+              <div class="goal-pill" data-goal="lose">📉 Lose</div>
+              <div class="goal-pill" data-goal="maintain">⚖️ Maintain</div>
+              <div class="goal-pill" data-goal="gain">📈 Gain</div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">💾 Save changes</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>🗑️ Reset</h2>
+        <p style="color:var(--muted); font-size:13px;">
+          Everything is stored only in this browser. Resetting clears your profile and all logged data here.
+        </p>
+        <button class="btn btn-outline btn-block" id="resetBtn">🗑️ Clear my data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

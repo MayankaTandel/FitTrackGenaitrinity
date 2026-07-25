@@ -137,19 +137,36 @@ app.post("/api/analyze-food", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🔌  FitTrackGenaitrinity running at http://localhost:${PORT}\n`);
+// app.listen(PORT, () => {
+//   console.log(`\n🔌  FitTrackGenaitrinity running at http://localhost:${PORT}\n`);
 
-  const envPath = path.join(__dirname, ".env");
-  const key = process.env.GEMINI_API_KEY;
+//   const envPath = path.join(__dirname, ".env");
+//   const key = process.env.GEMINI_API_KEY;
 
-  if (!fs.existsSync(envPath)) {
-    console.log(`⚠️  No .env file found at: ${envPath}`);
-    console.log("    Copy .env.example to .env, then add your real key and restart.\n");
-  } else if (!key || key === "your_gemini_api_key_here") {
-    console.log(`⚠️  Found .env but GEMINI_API_KEY is missing or still the placeholder.`);
-    console.log("    Open .env and set GEMINI_API_KEY to your real key, then restart.\n");
-  } else {
-    console.log(`✅  GEMINI_API_KEY loaded (starts with: ${key.slice(0, 6)}...)\n`);
-  }
-});
+//   if (!fs.existsSync(envPath)) {
+//     console.log(`⚠️  No .env file found at: ${envPath}`);
+//     console.log("    Copy .env.example to .env, then add your real key and restart.\n");
+//   } else if (!key || key === "your_gemini_api_key_here") {
+//     console.log(`⚠️  Found .env but GEMINI_API_KEY is missing or still the placeholder.`);
+//     console.log("    Open .env and set GEMINI_API_KEY to your real key, then restart.\n");
+//   } else {
+//     console.log(`✅  GEMINI_API_KEY loaded (starts with: ${key.slice(0, 6)}...)\n`);
+//   }
+// });
+// Export the Express app for Vercel
+module.exports = app;
+
+// Run locally with: npm start
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n🔌 FitTrackGenaitrinity running at http://localhost:${PORT}\n`);
+
+    const key = process.env.GEMINI_API_KEY;
+
+    if (!key || key === "your_gemini_api_key_here") {
+      console.log("⚠️ GEMINI_API_KEY is missing or still the placeholder.");
+    } else {
+      console.log(`✅ GEMINI_API_KEY loaded (starts with: ${key.slice(0, 6)}...)`);
+    }
+  });
+}

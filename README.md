@@ -3,11 +3,7 @@
 A simple AI fitness tracker: log food, log activity, track calories vs.
 your goal, and snap a photo of food to have Gemini estimate the calories.
 
-Plain **HTML/CSS/JS** frontend + a small **Node.js (Express)** server. No
-database, no accounts, no MERN-style complexity — your profile and logs
-live in your browser's `localStorage`. The server's only job is to call
-the Gemini API so your key never has to sit in the browser.
-
+Plain HTML/CSS/JS frontend + a Node.js (Express)
 ## Project structure
 
 ```

@@ -68,12 +68,3 @@ else (e.g. `5500`) and restart `npm start`.
   calculated using standard MET values.
 - **Profile** — edit your info, or clear all data from this browser.
 
-## Notes / limitations (on purpose, for simplicity)
-
-- Data is per-browser (`localStorage`) — no login, no syncing across
-  devices. Clearing browser storage starts fresh.
-- Calorie burn uses standard MET (Metabolic Equivalent of Task) values —
-  a well-established estimation method, not a medical-grade measurement.
-- This project isn't set up for deployment right now — it's meant to run
-  locally. When you're ready to deploy it, let me know and I'll walk
-  through it for this exact structure.
